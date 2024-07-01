@@ -92,7 +92,7 @@ function Dropdown(){
 
 // Função para ajustar o comportamento do botão com base no tipo de usuário
 function ajustarComportamentoBotao() {
-    var tipoUsuario = obterTipoUsuarioDoLocalStorage();
+    var tipoUsuario = usuarioCorrente.tipo;
     var botaoAcao = document.getElementById("botao-acao-home");
 
     
@@ -119,7 +119,7 @@ window.onload = ajustarComportamentoBotao;
 
 
 async function atualizarVagasPublicadasParaUsuarioCorrente() {
-    let JSON_SERVER_URL_EMPREGADORES = 'https://uaijobs-json-server.vercel.app/empregadores ';
+    let JSON_SERVER_URL_EMPREGADORES = 'https://uaijobs-json-server.vercel.app/empregadores';
     JSON_SERVER_URL_VAGAS = 'https://uaijobs-json-server.vercel.app/vagas';
     try {
         const usuarioCorrente = JSON.parse(localStorage.getItem('UsuarioCorrente'));
