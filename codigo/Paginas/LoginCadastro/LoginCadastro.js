@@ -124,12 +124,13 @@ async function cadastrarUsuarioLS() {
     // Salva o novo usuário no JSON server e armazena o usuário corrente no local storage
     let usuarioSalvo = await saveUsuario(novoUsuario, tipo);
     salvarUsuarioCorrenteLS(usuarioSalvo);
-
+    window.alert("Cadastro realizado com sucesso!")
+    
     // Redireciona o usuário com base no tipo
     if (tipo === 'freelancer') {
-        window.location.href = "../PesquisaInteresse/PesquisaInteresse.html";
+        window.location.replace("../PesquisaInteresse/PesquisaInteresse.html")
     } else {
-        window.location.href = "../Home/Home.html";
+        window.location.replace("../Home/Home.html")
     }
 }
 
