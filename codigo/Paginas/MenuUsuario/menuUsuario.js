@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function carregaDadosUsuarioCorrente() {
     let userData = JSON.parse(localStorage.getItem('UsuarioCorrente'));
     if (userData) {
-        document.getElementById('userImage').src = `${userData.imagem}` || 'default.jpg';
+        document.getElementById('userImage').src = `${userData.imagem}`;
         document.getElementById('userName').innerHTML = `${userData.nome}` || 'Nome do Usuário';
         document.getElementById('userEmail').innerHTML = `<strong>E-mail:</strong> ${userData.email}` || 'E-mail';
         document.getElementById('userSenha').innerHTML = `<strong>Senha:</strong> ${userData.senha}` || 'E-mail';

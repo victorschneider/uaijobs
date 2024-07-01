@@ -471,7 +471,6 @@ async function candidatarVaga(vagaId) {
         window.alert('Você se candidatou com sucesso!');
     } catch (error) {
         console.error("Erro ao candidatar-se à vaga:", error);
-        window.alert('Erro ao candidatar-se à vaga. Por favor, tente novamente.');
     }
 }
 
