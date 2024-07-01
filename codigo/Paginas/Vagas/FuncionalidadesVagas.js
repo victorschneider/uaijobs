@@ -17,7 +17,7 @@ let filters = {
 // Função que carrega as vagas do JSON-Server na página
 document.addEventListener("DOMContentLoaded", function () {
     const vagasContainer = document.getElementById('container-vagas-abertas');
-    const JSON_SERVER_URL_VAGAS = 'https://uaijobs-json-server.vercel.app/vagas';
+    const JSON_SERVER_URL_VAGAS = 'https://uaijobs-json-server.onrender.com/vagas';
 
     // Verifique se axios está disponível
     if (typeof axios === 'undefined') {
@@ -550,9 +550,9 @@ async function retirarCandidatura(vagaId) {
 }
 
 // Página de publicar vagas
-const JSON_SERVER_URL_VAGAS = 'https://uaijobs-json-server.vercel.app/vagas';
-const JSON_SERVER_URL_EMPREGADORES = 'https://uaijobs-json-server.vercel.app/empregadores';
-const JSON_SERVER_URL_FREELANCERS = 'https://uaijobs-json-server.vercel.app/freelancers';
+const JSON_SERVER_URL_VAGAS = 'https://uaijobs-json-server.onrender.com/vagas';
+const JSON_SERVER_URL_EMPREGADORES = 'https://uaijobs-json-server.onrender.com/empregadores';
+const JSON_SERVER_URL_FREELANCERS = 'https://uaijobs-json-server.onrender.com/freelancers';
 
 // Função para buscar o endereço pelo CEP
 async function buscarEnderecoPorCEP(cep) {
@@ -856,9 +856,9 @@ document.addEventListener("DOMContentLoaded", function () {
 //Tipo de vaga que vai ser exibida
 document.addEventListener("DOMContentLoaded", async function () {
     const vagasContainer = document.getElementById('Vagas-candidatada-postada');
-    const JSON_SERVER_URL_VAGAS = 'https://uaijobs-json-server.vercel.app/vagas';
-    const JSON_SERVER_URL_EMPREGADORES = 'https://uaijobs-json-server.vercel.app/empregadores';
-    const JSON_SERVER_URL_FREELANCERS = 'https://uaijobs-json-server.vercel.app/freelancers';
+    const JSON_SERVER_URL_VAGAS = 'https://uaijobs-json-server.onrender.com/vagas';
+    const JSON_SERVER_URL_EMPREGADORES = 'https://uaijobs-json-server.onrender.com/empregadores';
+    const JSON_SERVER_URL_FREELANCERS = 'https://uaijobs-json-server.onrender.com/freelancers';
 
     const usuarioCorrente = JSON.parse(localStorage.getItem('UsuarioCorrente'));
 
