@@ -1,3 +1,5 @@
+const URL_JSON_SERVER = "https://uaijobs-json-server.vercel.app"
+
 // Adiciona um evento que será executado quando o DOM estiver completamente carregado
 document.addEventListener('DOMContentLoaded', function() {
     // Array de textos que serão exibidos dinamicamente
@@ -87,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Construção dinâmica do carrossel para 3 feedbacks por vez
 function mostraFeedbacks() {
-    axios.get('http://localhost:3000/feedbacks')
+    axios.get(`${URL_JSON_SERVER}/feedbacks`)
         .then(response => {
             const feedbacks = response.data;
             const carouselInner = document.querySelector('.carousel-inner');
@@ -145,7 +147,7 @@ function mostraFeedbacks() {
 
 // Construção dinâmica do carrossel para 1 feedback por vez
 function mostraFeedbacksUmPorVez() {
-    axios.get('http://localhost:3000/feedbacks')
+    axios.get(`${URL_JSON_SERVER}/feedbacks`)
         .then(response => {
             const feedbacks = response.data;
             const carouselInner = document.querySelector('.carousel-inner');
@@ -253,7 +255,7 @@ function ArmazenaFeedback(event) {
     };
 
     // Envia o feedback para o servidor JSON
-    axios.post('http://localhost:3000/feedbacks', feedback) // Substitua pela URL do seu JSON server
+    axios.post(`${URL_JSON_SERVER}/feedbacks`, feedback) // Substitua pela URL do seu JSON server
         .then(response => {
             console.log('Feedback enviado com sucesso:', response.data);
             alert('Feedback enviado com sucesso!');
@@ -273,8 +275,8 @@ function ArmazenaFeedback(event) {
 //Funções de pagamento
 
 document.addEventListener('DOMContentLoaded', () => {
-    const JSON_SERVER_URL_EMPREGADORES = 'http://localhost:3000/empregadores';
-    const JSON_SERVER_URL_FREELANCERS = 'http://localhost:3000/freelancers';
+    const JSON_SERVER_URL_EMPREGADORES = 'https://uaijobs-json-server.vercel.app/empregadores';
+    const JSON_SERVER_URL_FREELANCERS = 'https://uaijobs-json-server.vercel.app/freelancers';
 
     // Seleciona o botão de pagamento no modal
     const btnPagamento = document.getElementById('payment-button');

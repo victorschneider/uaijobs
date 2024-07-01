@@ -119,8 +119,8 @@ window.onload = ajustarComportamentoBotao;
 
 
 async function atualizarVagasPublicadasParaUsuarioCorrente() {
-    let JSON_SERVER_URL_EMPREGADORES = 'http://localhost:3000/empregadores ';
-    JSON_SERVER_URL_VAGAS = 'http://localhost:3000/vagas';
+    let JSON_SERVER_URL_EMPREGADORES = 'https://uaijobs-json-server.vercel.app/empregadores ';
+    JSON_SERVER_URL_VAGAS = 'https://uaijobs-json-server.vercel.app/vagas';
     try {
         const usuarioCorrente = JSON.parse(localStorage.getItem('UsuarioCorrente'));
         if (!usuarioCorrente || usuarioCorrente.tipo !== 'empregador') {

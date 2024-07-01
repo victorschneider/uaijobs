@@ -1,6 +1,6 @@
-const JSON_SERVER_URL_EMPREGADORES = 'http://localhost:3000/empregadores';
-const JSON_SERVER_URL_FREELANCERS = 'http://localhost:3000/freelancers';
-const JSON_SERVER_URL_ADMIN = 'http://localhost:3000/admin';
+const JSON_SERVER_URL_EMPREGADORES = 'https://uaijobs-json-server.vercel.app/empregadores';
+const JSON_SERVER_URL_FREELANCERS = 'https://uaijobs-json-server.vercel.app/freelancers';
+const JSON_SERVER_URL_ADMIN = 'https://uaijobs-json-server.vercel.app/admin';
 
 // Função para buscar todos os usuários do JSON server, tanto empregadores quanto freelancers
 async function fetchUsuarios() {
