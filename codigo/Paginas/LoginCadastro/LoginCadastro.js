@@ -97,8 +97,10 @@ async function cadastrarUsuarioLS() {
         return;
     }
 
+
     // Cria o objeto do novo usuário
     let novoUsuario = {
+        id: todosUsuarios.length,
         nome: nome,
         dataNascimento: dataNasc,
         cpf: cpfOuCnpj,
