@@ -1,4 +1,4 @@
-JSON_SERVER_URL_FREELANCERS =  'https://uaijobs-json-server.onrender.com/'
+JSON_SERVER_URL_FREELANCERS =  'https://uaijobs-json-server.onrender.com/freelancers'
 let freelancers = [];
 let filteredItems = [];
 let currentPage = 1;
@@ -10,12 +10,21 @@ let filters = {
 
 // Carrega os dados dos freelancers ao carregar a página
 document.addEventListener("DOMContentLoaded", async function () {
-    const response = await axios.get(`${JSON_SERVER_URL_FREELANCERS}`);
-    freelancers = response.data;
-    console.log(freelancers);
-    populateCategoryDropdown();
-    renderPage(currentPage); // Renderiza todos os freelancers inicialmente
+    try {
+        const response = await axios.get(`${JSON_SERVER_URL_FREELANCERS}`);
+        freelancers = response.data;
+        console.log('Freelancers data:', freelancers);
+        if (Array.isArray(freelancers)) {
+            populateCategoryDropdown();
+            renderPage(currentPage); // Renderiza todos os freelancers inicialmente
+        } else {
+            console.error('Freelancers data is not an array:', freelancers);
+        }
+    } catch (error) {
+        console.error('Error fetching freelancers data:', error);
+    }
 });
+
 
 // Função para aplicar os filtros
 async function applyFilters() {
@@ -187,8 +196,9 @@ function resetFilters() {
 
 // Função para popular o dropdown de categorias
 function populateCategoryDropdown() {
+    console.log('Populating category dropdown with freelancers:', freelancers);
     const dropdownMenu = document.getElementById('dropdownCategoryMenu');
-    const uniqueCategories = [...new Set(freelancers.flatMap(freelancer => freelancer.interesses))];
+    const uniqueCategories = [...new Set(freelancers.map(freelancer => freelancer.interesses).flat())];
 
     uniqueCategories.forEach(category => {
         const listItem = document.createElement('li');
@@ -201,7 +211,6 @@ function populateCategoryDropdown() {
         dropdownMenu.appendChild(listItem);
     });
 }
-
 // Função para buscar as coordenadas por CEP usando a API do Google Maps
 async function buscarCoordenadasPorCEP(cep) {
     const apiKey = 'AIzaSyDpyahm2yA-CCerVqOXj-xufJzQXbwA8D4';
