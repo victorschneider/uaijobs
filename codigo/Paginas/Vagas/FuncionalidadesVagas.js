@@ -17,7 +17,7 @@ let filters = {
 // Função que carrega as vagas do JSON-Server na página
 document.addEventListener("DOMContentLoaded", function () {
     const vagasContainer = document.getElementById('container-vagas-abertas');
-    const JSON_SERVER_URL_VAGAS = 'https://uaijobs-json-server.onrender.com/vagas';
+    const JSON_SERVER_URL_VAGAS = 'https://uaijobs-json-server.vercel.app/vagas';
 
     // Verifique se axios está disponível
     if (typeof axios === 'undefined') {
