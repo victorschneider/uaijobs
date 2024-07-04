@@ -74,7 +74,7 @@ const interesses = [
     { name: 'Construção', imageUrl: '../../img/imgCardsPesquisaInteresse/tijolos.png' },
     { name: 'Tradução', imageUrl: '../../img/imgCardsPesquisaInteresse/traducao.png' },
     { name: 'Videoclipes', imageUrl: '../../img/imgCardsPesquisaInteresse/videoclipe.png' },
-    { name: 'Computação', imageUrl: '../../img/imgCardsPesquisaInteresse/computacao.png' },
+    { name: 'Computação', imageUrl: 'codigo\img\ImgCardsPesquisaInteresse\computacao.png' },
     { name: 'Mídias Sociais', imageUrl: '../../img/imgCardsPesquisaInteresse/midia-social.png' }
 ];
 
