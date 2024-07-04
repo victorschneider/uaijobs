@@ -74,7 +74,7 @@ const interesses = [
     { name: 'Construção', imageUrl: '/img/imgCardsPesquisaInteresse/tijolos.png' },
     { name: 'Tradução', imageUrl: '/img/imgCardsPesquisaInteresse/traducao.png' },
     { name: 'Videoclipes', imageUrl: '/img/imgCardsPesquisaInteresse/videoclipe.png' },
-    { name: 'Computação', imageUrl: '/img/imgCardsPesquisaInteresse/computacao.png' },
+    { name: 'Computação', imageUrl: 'https://github.com/victorschneider/uaijobs/blob/eaeda28f9dc9bdbb2d32b26b959101ea21cd1c47/codigo/img/ImgCardsPesquisaInteresse/computacao.png' },
     { name: 'Mídias Sociais', imageUrl: '/img/imgCardsPesquisaInteresse/midia-social.png' }
 ];
 
