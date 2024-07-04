@@ -64,18 +64,18 @@ function salvarSelecoes() {
 
 // Nomes dos interesses e caminhos das imagens
 const interesses = [
-    { name: 'Jurídico', imageUrl: '/img/imgCardsPesquisaInteresse/justica.png' },
-    { name: 'Culinária', imageUrl: '/img/imgCardsPesquisaInteresse/culinaria.png' },
-    { name: 'Design', imageUrl: '/img/imgCardsPesquisaInteresse/design.png' },
-    { name: 'Finanças', imageUrl: '/img/imgCardsPesquisaInteresse/financa.png' },
-    { name: 'Fotografia', imageUrl: '/img/imgCardsPesquisaInteresse/fotografia.png' },
-    { name: 'Marketing', imageUrl: '/img/imgCardsPesquisaInteresse/marketing.png' },
-    { name: 'Redação', imageUrl: '/img/imgCardsPesquisaInteresse/redacao.png' },
-    { name: 'Construção', imageUrl: '/img/imgCardsPesquisaInteresse/tijolos.png' },
-    { name: 'Tradução', imageUrl: '/img/imgCardsPesquisaInteresse/traducao.png' },
-    { name: 'Videoclipes', imageUrl: '/img/imgCardsPesquisaInteresse/videoclipe.png' },
-    { name: 'Computação', imageUrl: 'https://github.com/victorschneider/uaijobs/blob/eaeda28f9dc9bdbb2d32b26b959101ea21cd1c47/codigo/img/ImgCardsPesquisaInteresse/computacao.png' },
-    { name: 'Mídias Sociais', imageUrl: '/img/imgCardsPesquisaInteresse/midia-social.png' }
+    { name: 'Jurídico', imageUrl: 'https://res.cloudinary.com/df7rlfmhg/image/upload/v1720130707/ImgCardsPesquisaInteresse/dn2u1pojyucor5tlaefv.png' },
+    { name: 'Culinária', imageUrl: 'https://res.cloudinary.com/df7rlfmhg/image/upload/v1720130707/ImgCardsPesquisaInteresse/i3vc2atnkuzb14rejlxk.png' },
+    { name: 'Design', imageUrl: 'https://res.cloudinary.com/df7rlfmhg/image/upload/v1720130707/ImgCardsPesquisaInteresse/ae3io5wh8a5n42wiwkbp.png' },
+    { name: 'Finanças', imageUrl: 'https://res.cloudinary.com/df7rlfmhg/image/upload/v1720130707/ImgCardsPesquisaInteresse/b5dgzxq8wlugydzewar1.png' },
+    { name: 'Fotografia', imageUrl: 'https://res.cloudinary.com/df7rlfmhg/image/upload/v1720130707/ImgCardsPesquisaInteresse/avwdvvymobcubgadjvdg.png' },
+    { name: 'Marketing', imageUrl: 'https://res.cloudinary.com/df7rlfmhg/image/upload/v1720130708/ImgCardsPesquisaInteresse/ymmofwdifsfammoql5rx.png' },
+    { name: 'Redação', imageUrl: 'https://res.cloudinary.com/df7rlfmhg/image/upload/v1720130708/ImgCardsPesquisaInteresse/kcv2zodeancl34shug4d.png' },
+    { name: 'Construção', imageUrl: 'https://res.cloudinary.com/df7rlfmhg/image/upload/v1720130708/ImgCardsPesquisaInteresse/bugvprtllewm8fccy3jl.png' },
+    { name: 'Tradução', imageUrl: 'https://res.cloudinary.com/df7rlfmhg/image/upload/v1720130708/ImgCardsPesquisaInteresse/og6k2zcglxc8ypfu1afs.png' },
+    { name: 'Videoclipes', imageUrl: 'https://res.cloudinary.com/df7rlfmhg/image/upload/v1720130708/ImgCardsPesquisaInteresse/g4h6t03ci8dagfpslmew.png' },
+    { name: 'Computação', imageUrl: 'https://res.cloudinary.com/df7rlfmhg/image/upload/v1720130707/ImgCardsPesquisaInteresse/uiz46mnsnu5e81qfzjb2.png' },
+    { name: 'Mídias Sociais', imageUrl: 'https://res.cloudinary.com/df7rlfmhg/image/upload/v1720130708/ImgCardsPesquisaInteresse/ulovzsicotbncjpf3iha.png' }
 ];
 
 // Função para criar um card com uma imagem específica e nome do interesse
