@@ -64,18 +64,18 @@ function salvarSelecoes() {
 
 // Nomes dos interesses e caminhos das imagens
 const interesses = [
-    { name: 'Jurídico', imageUrl: '../../img/imgCardsPesquisaInteresse/justica.png' },
-    { name: 'Culinária', imageUrl: '../../img/imgCardsPesquisaInteresse/culinaria.png' },
-    { name: 'Design', imageUrl: '../../img/imgCardsPesquisaInteresse/design.png' },
-    { name: 'Finanças', imageUrl: '../../img/imgCardsPesquisaInteresse/financa.png' },
-    { name: 'Fotografia', imageUrl: '../../img/imgCardsPesquisaInteresse/fotografia.png' },
-    { name: 'Marketing', imageUrl: '../../img/imgCardsPesquisaInteresse/marketing.png' },
-    { name: 'Redação', imageUrl: '../../img/imgCardsPesquisaInteresse/redacao.png' },
-    { name: 'Construção', imageUrl: '../../img/imgCardsPesquisaInteresse/tijolos.png' },
-    { name: 'Tradução', imageUrl: '../../img/imgCardsPesquisaInteresse/traducao.png' },
-    { name: 'Videoclipes', imageUrl: '../../img/imgCardsPesquisaInteresse/videoclipe.png' },
-    { name: 'Computação', imageUrl: 'codigo\img\ImgCardsPesquisaInteresse\computacao.png' },
-    { name: 'Mídias Sociais', imageUrl: '../../img/imgCardsPesquisaInteresse/midia-social.png' }
+    { name: 'Jurídico', imageUrl: '/img/imgCardsPesquisaInteresse/justica.png' },
+    { name: 'Culinária', imageUrl: '/img/imgCardsPesquisaInteresse/culinaria.png' },
+    { name: 'Design', imageUrl: '/img/imgCardsPesquisaInteresse/design.png' },
+    { name: 'Finanças', imageUrl: '/img/imgCardsPesquisaInteresse/financa.png' },
+    { name: 'Fotografia', imageUrl: '/img/imgCardsPesquisaInteresse/fotografia.png' },
+    { name: 'Marketing', imageUrl: '/img/imgCardsPesquisaInteresse/marketing.png' },
+    { name: 'Redação', imageUrl: '/img/imgCardsPesquisaInteresse/redacao.png' },
+    { name: 'Construção', imageUrl: '/img/imgCardsPesquisaInteresse/tijolos.png' },
+    { name: 'Tradução', imageUrl: '/img/imgCardsPesquisaInteresse/traducao.png' },
+    { name: 'Videoclipes', imageUrl: '/img/imgCardsPesquisaInteresse/videoclipe.png' },
+    { name: 'Computação', imageUrl: '/img/imgCardsPesquisaInteresse/computacao.png' },
+    { name: 'Mídias Sociais', imageUrl: '/img/imgCardsPesquisaInteresse/midia-social.png' }
 ];
 
 // Função para criar um card com uma imagem específica e nome do interesse
