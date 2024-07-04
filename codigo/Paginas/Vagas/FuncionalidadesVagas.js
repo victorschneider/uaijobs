@@ -72,9 +72,9 @@ function populateCategoryDropdown() {
     dropdownCategory.parentNode.appendChild(dropdownMenu);
 }
 
-// Função para buscar as coordenadas por CEP usando a API do Google Maps
+// // Função para buscar as coordenadas por CEP usando a API do Google Maps
 async function buscarCoordenadasPorCEP(cep) {
-    const apiKey = 'AIzaSyDpyahm2yA-CCerVqOXj-xufJzQXbwA8D4';
+    const apiKey = 'AIzaSyDpyahm2yA-CCerVqOXj-xufJzQXbwA8D4'; // Substitua pela sua chave de API do Google Maps
     try {
         const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${cep}&key=${apiKey}`);
         const data = await response.json();
@@ -172,7 +172,11 @@ function renderPage(page) {
 
     const start = (page - 1) * itensPorPagina;
     const end = start + itensPorPagina;
-    const pageItems = filteredItems.slice(start, end);
+
+    // Filtrar itens que estão publicados e online
+    const filteredPublishedItems = filteredItems.filter(vagaItem => vagaItem.publicado && vagaItem.online);
+
+    const pageItems = filteredPublishedItems.slice(start, end);
 
     console.log('Itens da página:', pageItems); // Log para verificar itens da página
 
@@ -180,73 +184,71 @@ function renderPage(page) {
     row.classList.add('row', 'gx-3', 'gy-3'); // Define a row com gap entre os cartões
 
     pageItems.forEach(vagaItem => {
-        if (vagaItem.publicado && vagaItem.online) {
-            const col = document.createElement('div');
-            col.classList.add('col-12', 'col-md-6'); // Define duas colunas por linha
+        const col = document.createElement('div');
+        col.classList.add('col-12', 'col-md-6'); // Define duas colunas por linha
 
-            const vagaCard = document.createElement('div');
-            vagaCard.classList.add('Container', 'border', 'p-3', 'rounded-4', 'shadow-lg', 'bg-body-tertiary');
+        const vagaCard = document.createElement('div');
+        vagaCard.classList.add('Container', 'border', 'p-3', 'rounded-4', 'shadow-lg', 'bg-body-tertiary', 'd-flex', 'flex-column');
 
-            const title = document.createElement('div');
-            title.classList.add('Cards-vagas-title', 'text-center', 'pb-2');
-            const h2 = document.createElement('h2');
-            h2.textContent = vagaItem.nome;
-            title.appendChild(h2);
+        const title = document.createElement('div');
+        title.classList.add('Cards-vagas-title', 'text-center', 'pb-2');
+        const h2 = document.createElement('h2');
+        h2.textContent = vagaItem.nome;
+        title.appendChild(h2);
 
-            const imagem = document.createElement('div');
-            imagem.classList.add('Cards-vagas-imagem');
-            const img = document.createElement('img');
-            img.classList.add('rounded-3', 'img-fluid'); // img-fluid para ajustar a largura
-            img.src = vagaItem.imagem;
-            img.alt = 'Imagem da vaga';
-            img.onerror = function () {
-                console.error('Erro ao carregar a imagem:', vagaItem.imagem);
-                img.src = 'fallback_image_url.jpg'; // Imagem de fallback
-            };
-            imagem.appendChild(img);
+        const imagem = document.createElement('div');
+        imagem.classList.add('Cards-vagas-imagem');
+        const img = document.createElement('img');
+        img.classList.add('rounded-3', 'img-fluid'); // img-fluid para ajustar a largura
+        img.src = vagaItem.imagem;
+        img.alt = 'Imagem da vaga';
+        img.onerror = function () {
+            console.error('Erro ao carregar a imagem:', vagaItem.imagem);
+            img.src = 'fallback_image_url.jpg'; // Imagem de fallback
+        };
+        imagem.appendChild(img);
 
-            const descricao = document.createElement('div');
-            descricao.classList.add('Cards-vagas-descrição');
-            const p = document.createElement('p');
-            const maxLength = 500;
-            if (vagaItem.descricao) {
-                p.textContent = vagaItem.descricao.substring(0, maxLength) + '...';
-            } else {
-                p.textContent = 'Descrição não disponível.';
-            }
-            descricao.appendChild(p);
-
-            const bttn = document.createElement('div');
-            bttn.classList.add('Cards-vagas-bttn', 'd-grid', 'gap-2', 'col-6', 'mx-auto');
-            const button = document.createElement('button');
-            button.classList.add('btn');
-            button.textContent = 'Ver detalhes';
-            button.onclick = function () {
-                mostrarDetalhesVaga(vagaItem);
-            };
-            bttn.appendChild(button);
-
-            vagaCard.appendChild(title);
-            vagaCard.appendChild(imagem);
-            vagaCard.appendChild(descricao);
-            vagaCard.appendChild(bttn);
-
-            col.appendChild(vagaCard);
-            row.appendChild(col);
+        const descricao = document.createElement('div');
+        descricao.classList.add('Cards-vagas-descrição');
+        const p = document.createElement('p');
+        const maxLength = 500;
+        if (vagaItem.descricao) {
+            p.textContent = vagaItem.descricao.substring(0, maxLength) + '...';
+        } else {
+            p.textContent = 'Descrição não disponível.';
         }
+        descricao.appendChild(p);
+
+        const bttn = document.createElement('div');
+        bttn.classList.add('Cards-vagas-bttn', 'd-grid', 'gap-2', 'col-6', 'mx-auto');
+        const button = document.createElement('button');
+        button.classList.add('btn');
+        button.textContent = 'Ver detalhes';
+        button.onclick = function () {
+            mostrarDetalhesVaga(vagaItem);
+        };
+        bttn.appendChild(button);
+
+        vagaCard.appendChild(title);
+        vagaCard.appendChild(imagem);
+        vagaCard.appendChild(descricao);
+        vagaCard.appendChild(bttn);
+
+        col.appendChild(vagaCard);
+        row.appendChild(col);
     });
 
     vagasContainer.appendChild(row);
 
-    updatePagination();
+    updatePagination(filteredPublishedItems.length); // Passe o comprimento correto
 }
 
 // Função para atualizar a paginação
-function updatePagination() {
+function updatePagination(totalItems) {
     const pagination = document.querySelector('.pagination');
     pagination.innerHTML = '';
 
-    const totalPages = Math.ceil(filteredItems.length / itensPorPagina);
+    const totalPages = Math.ceil(totalItems / itensPorPagina);
 
     pagination.innerHTML += `
         <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
@@ -268,7 +270,6 @@ function updatePagination() {
         </li>
     `;
 }
-
 // Função para selecionar uma página
 function selectPage(page) {
     if (page < 1 || page > Math.ceil(filteredItems.length / itensPorPagina)) return;
@@ -550,9 +551,9 @@ async function retirarCandidatura(vagaId) {
 }
 
 // Página de publicar vagas
-const JSON_SERVER_URL_VAGAS = 'https://uaijobs-json-server.onrender.com/vagas';
-const JSON_SERVER_URL_EMPREGADORES = 'https://uaijobs-json-server.onrender.com/empregadores';
-const JSON_SERVER_URL_FREELANCERS = 'https://uaijobs-json-server.onrender.com/freelancers';
+    const JSON_SERVER_URL_VAGAS = 'https://uaijobs-json-server.vercel.app/vagas';
+    const JSON_SERVER_URL_EMPREGADORES = 'https://uaijobs-json-server.vercel.app/empregadores';
+    const JSON_SERVER_URL_FREELANCERS = 'https://uaijobs-json-server.vercel.app/freelancers';
 
 // Função para buscar o endereço pelo CEP
 async function buscarEnderecoPorCEP(cep) {
@@ -856,9 +857,9 @@ document.addEventListener("DOMContentLoaded", function () {
 //Tipo de vaga que vai ser exibida
 document.addEventListener("DOMContentLoaded", async function () {
     const vagasContainer = document.getElementById('Vagas-candidatada-postada');
-    const JSON_SERVER_URL_VAGAS = 'https://uaijobs-json-server.onrender.com/vagas';
-    const JSON_SERVER_URL_EMPREGADORES = 'https://uaijobs-json-server.onrender.com/empregadores';
-    const JSON_SERVER_URL_FREELANCERS = 'https://uaijobs-json-server.onrender.com/freelancers';
+    const JSON_SERVER_URL_VAGAS = 'https://uaijobs-json-server.vercel.app/vagas';
+    const JSON_SERVER_URL_EMPREGADORES = 'https://uaijobs-json-server.vercel.app/empregadores';
+    const JSON_SERVER_URL_FREELANCERS = 'https://uaijobs-json-server.vercel.app/freelancers';
 
     const usuarioCorrente = JSON.parse(localStorage.getItem('UsuarioCorrente'));
 
@@ -903,57 +904,57 @@ document.addEventListener("DOMContentLoaded", async function () {
         return;
     }
     
-    //Carrega vagas
-    vagas.forEach(vagaItem => {
-        const vagaCard = document.createElement('div');
-        vagaCard.classList.add('Container', 'border', 'p-3', 'rounded-4', 'shadow-lg', 'p-3', 'mb-5', 'bg-body-tertiary', 'mx-5', 'col-xxl-4');
+    // Carrega vagas
+vagas.forEach(vagaItem => {
+    const vagaCard = document.createElement('div');
+    vagaCard.classList.add('Container', 'border', 'p-3', 'rounded-4', 'shadow-lg', 'mb-5', 'bg-body-tertiary', 'col-xxl-4', 'mx-5', 'd-flex', 'flex-column');
 
-        const title = document.createElement('div');
-        title.classList.add('Cards-vagas-title', 'text-center', 'pb-2');
-        const h2 = document.createElement('h2');
-        h2.textContent = vagaItem.nome;
-        title.appendChild(h2);
+    const title = document.createElement('div');
+    title.classList.add('Cards-vagas-title', 'text-center', 'pb-2');
+    const h2 = document.createElement('h2');
+    h2.textContent = vagaItem.nome;
+    title.appendChild(h2);
 
-        const imagem = document.createElement('div');
-        imagem.classList.add('Cards-vagas-imagem');
-        const img = document.createElement('img');
-        img.classList.add('rounded-3');
-        img.src = vagaItem.imagem;
-        img.alt = 'Imagem da vaga';
-        img.onerror = function () {
-            console.error('Erro ao carregar a imagem:', vagaItem.imagem);
-            img.src = 'fallback_image_url.jpg'; // Imagem de fallback
-        };
-        imagem.appendChild(img);
+    const imagem = document.createElement('div');
+    imagem.classList.add('Cards-vagas-imagem');
+    const img = document.createElement('img');
+    img.classList.add('rounded-3', 'img-fluid'); // img-fluid para ajustar a largura
+    img.src = vagaItem.imagem;
+    img.alt = 'Imagem da vaga';
+    img.onerror = function () {
+        console.error('Erro ao carregar a imagem:', vagaItem.imagem);
+        img.src = 'fallback_image_url.jpg'; // Imagem de fallback
+    };
+    imagem.appendChild(img);
 
-        const descricao = document.createElement('div');
-        descricao.classList.add('Cards-vagas-descrição');
-        const p = document.createElement('p');
-        const maxLength = 500;
-        if (vagaItem.descricao) {
-            p.textContent = vagaItem.descricao.substring(0, maxLength) + '...';
-        } else {
-            p.textContent = 'Descrição não disponível.';
-        }
-        descricao.appendChild(p);
+    const descricao = document.createElement('div');
+    descricao.classList.add('Cards-vagas-descrição');
+    const p = document.createElement('p');
+    const maxLength = 500;
+    if (vagaItem.descricao) {
+        p.textContent = vagaItem.descricao.substring(0, maxLength) + '...';
+    } else {
+        p.textContent = 'Descrição não disponível.';
+    }
+    descricao.appendChild(p);
 
-        const bttn = document.createElement('div');
-        bttn.classList.add('Cards-vagas-bttn', 'd-grid', 'gap-2', 'col-6', 'mx-auto');
-        const button = document.createElement('button');
-        button.classList.add('btn');
-        button.textContent = 'Ver detalhes';
-        button.onclick = function() {
-            mostrarDetalhesVaga(vagaItem);
-        };
-        bttn.appendChild(button);
-        
-        vagaCard.appendChild(title);
-        vagaCard.appendChild(imagem);
-        vagaCard.appendChild(descricao);
-        vagaCard.appendChild(bttn);
+    const bttn = document.createElement('div');
+    bttn.classList.add('Cards-vagas-bttn', 'd-grid', 'gap-2', 'col-6', 'mx-auto');
+    const button = document.createElement('button');
+    button.classList.add('btn');
+    button.textContent = 'Ver detalhes';
+    button.onclick = function() {
+        mostrarDetalhesVaga(vagaItem);
+    };
+    bttn.appendChild(button);
+    
+    vagaCard.appendChild(title);
+    vagaCard.appendChild(imagem);
+    vagaCard.appendChild(descricao);
+    vagaCard.appendChild(bttn);
 
-        vagasContainer.appendChild(vagaCard);
-    });
+    vagasContainer.appendChild(vagaCard);
+});
 
     // Função para mostrar detalhes da vaga
 async function mostrarDetalhesVaga(vaga) {
@@ -1099,12 +1100,13 @@ async function retirarCandidatura(vagaId) {
         }
 
         window.alert('Candidatura retirada com sucesso!');
-        window.location.reload(); // Recarrega a página para atualizar a lista de vagas
+
     } catch (error) {
         console.error("Erro ao retirar candidatura:", error);
         window.alert('Erro ao retirar candidatura. Por favor, tente novamente.');
     }
 }
+
 
     // Função para editar a vaga
     function editarVaga(vaga) {

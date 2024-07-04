@@ -113,7 +113,7 @@ function selectPage(page) {
 document.addEventListener("DOMContentLoaded", function () {
     let usuarioCorrente = lerUsuarioCorrenteLS();
     const vagasContainer = document.getElementById('container-vagas-recomendadas');
-    const JSON_SERVER_URL_VAGAS = 'https://uaijobs-json-server.onrender.com';
+    const JSON_SERVER_URL_VAGAS = 'https://uaijobs-json-server.vercel.app/vagas';
 
     // Verifique se axios está disponível
     if (typeof axios === 'undefined') {

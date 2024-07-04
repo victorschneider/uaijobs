@@ -1,4 +1,4 @@
-const URL_JSON_SERVER = "https://uaijobs-json-server.onrender.com"
+const URL_JSON_SERVER = "https://uaijobs-json-server.vercel.app/"
 
 // Adiciona um evento que será executado quando o DOM estiver completamente carregado
 document.addEventListener('DOMContentLoaded', function() {

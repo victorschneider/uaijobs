@@ -13,13 +13,59 @@
 }
 
 /*Container*/
-.Vagas-abertas, .Vagas-candidatada-postada {
+.Vagas-abertas,
+.Vagas-candidatada-postada {
     width: 100%;
 }
 
-#container-vagas-abertas{
+#container-vagas-abertas {
     justify-content: center;
 }
+
+.Container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    max-width: 800px;/* Defina um valor apropriado para o máximo de altura */
+    max-height: 900px; /* Defina um valor apropriado para o máximo de altura */
+    min-height: 700px; /* Defina um valor apropriado para a altura mínima */
+
+}
+
+.Cards-vagas-imagem img {
+    max-height: 500px; /* Ajuste conforme necessário para a imagem */
+    object-fit: cover;/* Mantém a proporção da imagem */
+    width: 100%;
+}
+
+.Cards-vagas-descrição {
+    flex-grow: 1;
+}
+
+.Cards-vagas-bttn {
+    margin-top: auto; /* Empurra o botão para o fim do card */
+}
+
+@media (max-width: 768px) {
+    .Container {
+        max-height: none;
+        /* Permite que a altura seja ajustada em telas menores */
+        min-height: 300px;
+        /* Ajuste conforme necessário para telas menores */
+    }
+}
+
+#container-vagas-abertas {
+    margin: 20px; /* Ajuste este valor para aumentar a margem */
+    padding-left: 50px;
+}
+
+.row {
+    margin-left: 0; /* Remove margem padrão das linhas */
+    margin-right: 0; /* Remove margem padrão das linhas */
+}
+
 
 /*Publicar vagas começa aqui */
 
@@ -28,7 +74,8 @@
 .divTituloForm {
     text-align: center;
     padding: 20px 0;
-    border-bottom: 3px solid #8d8686; /* Altere a cor conforme necessário */
+    border-bottom: 3px solid #8d8686;
+    /* Altere a cor conforme necessário */
     margin-bottom: 20px;
 }
 
@@ -38,11 +85,14 @@
 }
 
 .formPublicar {
-    background-color: #f0f0f0; /* Altere a cor conforme necessário */
+    background-color: #f0f0f0;
+    /* Altere a cor conforme necessário */
     padding: 30px;
-    border: 2px solid #8d8686; /* Altere a cor conforme necessário */
+    border: 2px solid #8d8686;
+    /* Altere a cor conforme necessário */
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adicione sombra discreta */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Adicione sombra discreta */
     margin-bottom: 20px;
 }
 
@@ -52,7 +102,8 @@
     margin-bottom: 5px;
 }
 
-.formPublicar .form-control, .formPublicar .form-select {
+.formPublicar .form-control,
+.formPublicar .form-select {
     padding: 10px;
     font-size: 1rem;
     border-radius: 5px;
@@ -61,8 +112,10 @@
 }
 
 #btnPublicarVaga {
-    background-color: #4e2525; /* Altere a cor conforme necessário */
-    color: antiquewhite; /* Altere a cor conforme necessário */
+    background-color: #4e2525;
+    /* Altere a cor conforme necessário */
+    color: antiquewhite;
+    /* Altere a cor conforme necessário */
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
@@ -71,14 +124,15 @@
 }
 
 #btnPublicarVaga:hover {
-    background-color: #3b1d1d; /* Altere a cor conforme necessário */
+    background-color: #3b1d1d;
+    /* Altere a cor conforme necessário */
 }
 
 /*Publicar vagas termina aqui */
 
 /* Estilo dos cards de candidato quando selecionado*/
 
-.selecionado{
+.selecionado {
     border: 3px solid #4e2525;
     border-radius: 2%;
 }
@@ -86,3 +140,5 @@
 #divForm {
     margin: 0 auto;
 }
+
+
