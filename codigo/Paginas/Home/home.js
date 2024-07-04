@@ -1,4 +1,4 @@
-const URL_JSON_SERVER = "https://uaijobs-json-server.vercel.app/"
+const URL_JSON_SERVER = "https://uaijobs-json-server.onrender.com"
 
 // Adiciona um evento que será executado quando o DOM estiver completamente carregado
 document.addEventListener('DOMContentLoaded', function() {
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Construção dinâmica do carrossel para 3 feedbacks por vez
 function mostraFeedbacks() {
-    axios.get(`https://uaijobs-json-server.vercel.app/feedbacks`)
+    axios.get(`https://uaijobs-json-server.onrender.com/feedbacks`)
         .then(response => {
             const feedbacks = response.data;
             const carouselInner = document.querySelector('.carousel-inner');
@@ -275,8 +275,8 @@ function ArmazenaFeedback(event) {
 //Funções de pagamento
 
 document.addEventListener('DOMContentLoaded', () => {
-    const JSON_SERVER_URL_EMPREGADORES = 'https://uaijobs-json-server.vercel.app/empregadores';
-    const JSON_SERVER_URL_FREELANCERS = 'https://uaijobs-json-server.vercel.app/freelancers';
+    const JSON_SERVER_URL_EMPREGADORES = 'https://uaijobs-json-server.onrender.com/empregadores';
+const JSON_SERVER_URL_FREELANCERS = 'https://uaijobs-json-server.onrender.com/freelancers';
 
     // Seleciona o botão de pagamento no modal
     const btnPagamento = document.getElementById('payment-button');

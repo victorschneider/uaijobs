@@ -17,7 +17,7 @@ let filters = {
 // Função que carrega as vagas do JSON-Server na página
 document.addEventListener("DOMContentLoaded", function () {
     const vagasContainer = document.getElementById('container-vagas-abertas');
-    const JSON_SERVER_URL_VAGAS = 'https://uaijobs-json-server.vercel.app/vagas';
+    const JSON_SERVER_URL_VAGAS = 'https://uaijobs-json-server.onrender.com/vagas';
 
     // Verifique se axios está disponível
     if (typeof axios === 'undefined') {
@@ -550,262 +550,378 @@ async function retirarCandidatura(vagaId) {
     }
 }
 
-// Página de publicar vagas
-    const JSON_SERVER_URL_VAGAS = 'https://uaijobs-json-server.vercel.app/vagas';
-    const JSON_SERVER_URL_EMPREGADORES = 'https://uaijobs-json-server.vercel.app/empregadores';
-    const JSON_SERVER_URL_FREELANCERS = 'https://uaijobs-json-server.vercel.app/freelancers';
+// // Página de publicar vagas
+//    const JSON_SERVER_URL_VAGAS = 'https://uaijobs-json-server.onrender.com/vagas';
+// const JSON_SERVER_URL_EMPREGADORES = 'https://uaijobs-json-server.onrender.com/empregadores';
+// const JSON_SERVER_URL_FREELANCERS = 'https://uaijobs-json-server.onrender.com/freelancers';
 
-// Função para buscar o endereço pelo CEP
-async function buscarEnderecoPorCEP(cep) {
-    try {
-        const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
-        return response.data;
-    } catch (error) {
-        console.error('Erro ao buscar endereço:', error);
-        return null;
-    }
-}
+//     document.getElementById('btnPublicarVaga').addEventListener('click', async function(event) {
+//         event.preventDefault();
+    
+//         // Obtenha os valores dos campos do formulário
+//         const nomeVaga = document.getElementById('nomeVaga').value;
+//         const localVaga = document.getElementById('localVaga').value;
+//         const dataVaga = document.getElementById('dataVaga').value;
+//         const categoriaVaga = document.getElementById('categoriaVaga').value;
+//         const turnoVaga = document.getElementById('turnoVaga').value;
+//         const valorVaga = document.getElementById('valorVaga').value;
+//         const habilidadesVaga = document.getElementById('habilidadesVaga').value.split(',').map(h => h.trim());
+//         const descricaoVaga = document.getElementById('descricaoVaga').value;
+//         const imagemVaga = document.getElementById('imagemVaga').value;
+    
+//         // Obtenha os dados do usuário corrente do localStorage
+//         const UsuarioCorrente = JSON.parse(localStorage.getItem('UsuarioCorrente'));
+    
+//         // Verifique se o usuário corrente existe e é um empregador
+//         if (!UsuarioCorrente || UsuarioCorrente.tipo !== 'empregador') {
+//             alert('Erro: Usuário corrente inválido ou não é um empregador.');
+//             return;
+//         }
+    
+//         // Faça o upload da imagem usando UploadCare
+//         let imagemUrl = '';
+//         if (imagemVaga) {
+//             const uploadcareWidget = uploadcare.Widget('[role=uploadcare-uploader]');
+//             const file = uploadcareWidget.value();
+//             if (file) {
+//                 const fileInfo = await file.promise();
+//                 imagemUrl = fileInfo.cdnUrl;
+//             }
+//         }
+    
+//         // Construa o objeto vaga
+//         const vaga = {
+//             id: generateId(), // Função para gerar ID único
+//             nome: nomeVaga,
+//             categoria: categoriaVaga,
+//             descricao: descricaoVaga,
+//             imagem: imagemUrl,
+//             valor: valorVaga,
+//             turno: turnoVaga,
+//             local: localVaga,
+//             data: dataVaga,
+//             habilidades: habilidadesVaga,
+//             empregador: UsuarioCorrente.nome,
+//             email: UsuarioCorrente.email,
+//             telefone: UsuarioCorrente.telefone,
+//             cnpj: UsuarioCorrente.cpf, // Usando CPF como CNPJ
+//             publicado: true,
+//             publicacao: new Date().toLocaleDateString('pt-BR'),
+//             candidatos: [],
+//             online: true,
+//             IDfreelancerEscolhido: null
+//         };
+    
+//         console.log('Objeto vaga a ser enviado:', vaga);
+    
+//         // Envie a vaga para o servidor JSON
+//         try {
+//             const response = await axios.post(JSON_SERVER_URL_VAGAS, vaga);
+//             console.log('Resposta do servidor:', response);
+//             if (response.status === 201) {
+//                 alert('Vaga publicada com sucesso!');
+//             } else {
+//                 alert('Erro ao publicar vaga!');
+//             }
+//         } catch (error) {
+//             console.error('Erro ao publicar vaga:', error.response ? error.response.data : error.message);
+//             alert('Erro ao publicar vaga!');
+//         }
+//     });
+    
+//     function generateId() {
+//         return '_' + Math.random().toString(36).substr(2, 9);
+//     }
+    
+// // Função para buscar o endereço pelo CEP
+// async function buscarEnderecoPorCEP(cep) {
+//     try {
+//         const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
+//         return response.data;
+//     } catch (error) {
+//         console.error('Erro ao buscar endereço:', error);
+//         return null;
+//     }
+// }
 
-// Função para salvar a vaga no JSON Server
-async function salvarVagaNoJSONServer(vaga, empregadorId) {
-    try {
-        console.log("Salvando vaga no servidor:", vaga);
-        let response = await fetch(JSON_SERVER_URL_VAGAS, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(vaga)
-        });
+// // Função para salvar a vaga no JSON Server
+// async function salvarVagaNoJSONServer(vaga, empregadorId) {
+//     try {
+//         console.log("Salvando vaga no servidor:", vaga);
+//         let response = await fetch(JSON_SERVER_URL_VAGAS, {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             },
+//             body: JSON.stringify(vaga)
+//         });
 
-        if (response.ok) {
-            let novaVaga = await response.json();
-            await atualizarEmpregadorComVaga(empregadorId, novaVaga.id);
-            window.alert('A vaga foi publicada! Para acessá-la, visite a aba de "Vagas em Aberto"');
-            return novaVaga;
-        } else {
-            throw new Error('Erro ao salvar vaga no JSON Server');
-        }
-    } catch (error) {
-        console.error(error);
-        if (error.message.includes('limite de vagas')) {
-            window.alert('Limite atingido');
-        } else {
-            window.alert('OK.');
-        }
-    }
-}
+//         if (response.ok) {
+//             let novaVaga = await response.json();
+//             await atualizarEmpregadorComVaga(empregadorId, novaVaga.id);
+//             window.alert('A vaga foi publicada! Para acessá-la, visite a aba de "Vagas em Aberto"');
+//             return novaVaga;
+//         } else {
+//             throw new Error('Erro ao salvar vaga no JSON Server');
+//         }
+//     } catch (error) {
+//         console.error(error);
+//         if (error.message.includes('limite de vagas')) {
+//             window.alert('Limite atingido');
+//         } else {
+//             window.alert('OK.');
+//         }
+//     }
+// }
 
-async function atualizarVagasPublicadasParaUsuarioCorrente() {
-    try {
-        const usuarioCorrente = JSON.parse(localStorage.getItem('UsuarioCorrente'));
-        if (!usuarioCorrente || usuarioCorrente.tipo !== 'empregador') {
-            console.error('Usuário corrente não é um empregador ou não está logado.');
-            return;
-        }
+// async function atualizarVagasPublicadasParaUsuarioCorrente() {
+//     try {
+//         const usuarioCorrente = JSON.parse(localStorage.getItem('UsuarioCorrente'));
+//         if (!usuarioCorrente || usuarioCorrente.tipo !== 'empregador') {
+//             console.error('Usuário corrente não é um empregador ou não está logado.');
+//             return;
+//         }
 
-        const responseVagas = await fetch(JSON_SERVER_URL_VAGAS);
-        if (!responseVagas.ok) {
-            throw new Error('Erro ao obter dados das vagas');
-        }
+//         const responseVagas = await fetch(JSON_SERVER_URL_VAGAS);
+//         if (!responseVagas.ok) {
+//             throw new Error('Erro ao obter dados das vagas');
+//         }
 
-        const vagas = await responseVagas.json();
-        const vagasPublicadasIds = vagas
-            .filter(vaga => vaga.email === usuarioCorrente.email)
-            .map(vaga => vaga.id);
+//         const vagas = await responseVagas.json();
+//         const vagasPublicadasIds = vagas
+//             .filter(vaga => vaga.email === usuarioCorrente.email)
+//             .map(vaga => vaga.id);
 
-        if (!usuarioCorrente.vagasPublicadas) {
-            usuarioCorrente.vagasPublicadas = [];
-        }
+//         if (!usuarioCorrente.vagasPublicadas) {
+//             usuarioCorrente.vagasPublicadas = [];
+//         }
 
-        usuarioCorrente.vagasPublicadas = [...new Set([...usuarioCorrente.vagasPublicadas, ...vagasPublicadasIds])];
-        localStorage.setItem('UsuarioCorrente', JSON.stringify(usuarioCorrente));
+//         usuarioCorrente.vagasPublicadas = [...new Set([...usuarioCorrente.vagasPublicadas, ...vagasPublicadasIds])];
+//         localStorage.setItem('UsuarioCorrente', JSON.stringify(usuarioCorrente));
 
-        const responseEmpregador = await fetch(`${JSON_SERVER_URL_EMPREGADORES}/${usuarioCorrente.id}`);
-        if (!responseEmpregador.ok) {
-            throw new Error('Erro ao obter dados do empregador');
-        }
+//         const responseEmpregador = await fetch(`${JSON_SERVER_URL_EMPREGADORES}/${usuarioCorrente.id}`);
+//         if (!responseEmpregador.ok) {
+//             throw new Error('Erro ao obter dados do empregador');
+//         }
 
-        const empregador = await responseEmpregador.json();
-        if (!empregador.vagasPublicadas) {
-            empregador.vagasPublicadas = [];
-        }
+//         const empregador = await responseEmpregador.json();
+//         if (!empregador.vagasPublicadas) {
+//             empregador.vagasPublicadas = [];
+//         }
 
-        empregador.vagasPublicadas = [...new Set([...empregador.vagasPublicadas, ...vagasPublicadasIds])];
+//         empregador.vagasPublicadas = [...new Set([...empregador.vagasPublicadas, ...vagasPublicadasIds])];
 
-        const updateResponse = await fetch(`${JSON_SERVER_URL_EMPREGADORES}/${usuarioCorrente.id}`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ vagasPublicadas: empregador.vagasPublicadas })
-        });
+//         const updateResponse = await fetch(`${JSON_SERVER_URL_EMPREGADORES}/${usuarioCorrente.id}`, {
+//             method: 'PATCH',
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             },
+//             body: JSON.stringify({ vagasPublicadas: empregador.vagasPublicadas })
+//         });
 
-        if (!updateResponse.ok) {
-            throw new Error('Erro ao atualizar dados do empregador');
-        }
+//         if (!updateResponse.ok) {
+//             throw new Error('Erro ao atualizar dados do empregador');
+//         }
 
-        console.log(`Empregador ${usuarioCorrente.id} atualizado com as vagas publicadas: ${vagasPublicadasIds}`);
-    } catch (error) {
-        console.error('Erro ao atualizar vagas publicadas para o usuário corrente:', error);
-    }
-}
+//         console.log(`Empregador ${usuarioCorrente.id} atualizado com as vagas publicadas: ${vagasPublicadasIds}`);
+//     } catch (error) {
+//         console.error('Erro ao atualizar vagas publicadas para o usuário corrente:', error);
+//     }
+// }
 
-async function atualizarEmpregadorComVaga(empregadorId, vagaId) {
-    try {
-        // Obter os dados do empregador do JSON Server
-        const response = await fetch(`${JSON_SERVER_URL_EMPREGADORES}/${empregadorId}`);
-        if (!response.ok) {
-            throw new Error('Erro ao obter dados do empregador');
-        }
+// async function atualizarEmpregadorComVaga(empregadorId, vagaId) {
+//     try {
+//         // Obter os dados do empregador do JSON Server
+//         const response = await fetch(`${JSON_SERVER_URL_EMPREGADORES}/${empregadorId}`);
+//         if (!response.ok) {
+//             throw new Error('Erro ao obter dados do empregador');
+//         }
 
-        const empregador = await response.json();
+//         const empregador = await response.json();
 
-        // Verificar e inicializar o array de vagasPublicadas se necessário
-        if (!empregador.vagasPublicadas) {
-            empregador.vagasPublicadas = [];
-        }
+//         // Verificar e inicializar o array de vagasPublicadas se necessário
+//         if (!empregador.vagasPublicadas) {
+//             empregador.vagasPublicadas = [];
+//         }
 
-        // Adicionar o ID da nova vaga ao array
-        empregador.vagasPublicadas.push(vagaId);
+//         // Adicionar o ID da nova vaga ao array
+//         empregador.vagasPublicadas.push(vagaId);
 
-        // Atualizar os dados do empregador no JSON Server
-        const updateResponse = await fetch(`${JSON_SERVER_URL_EMPREGADORES}/${empregadorId}`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ vagasPublicadas: empregador.vagasPublicadas })
-        });
+//         // Atualizar os dados do empregador no JSON Server
+//         const updateResponse = await fetch(`${JSON_SERVER_URL_EMPREGADORES}/${empregadorId}`, {
+//             method: 'PATCH',
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             },
+//             body: JSON.stringify({ vagasPublicadas: empregador.vagasPublicadas })
+//         });
 
-        if (!updateResponse.ok) {
-            throw new Error('Erro ao atualizar dados do empregador');
-        }
+//         if (!updateResponse.ok) {
+//             throw new Error('Erro ao atualizar dados do empregador');
+//         }
 
-        console.log(`Empregador ${empregadorId} atualizado com a nova vaga ${vagaId}`);
+//         console.log(`Empregador ${empregadorId} atualizado com a nova vaga ${vagaId}`);
 
-        // Atualizar os dados do empregador no localStorage
-        const usuarioCorrente = JSON.parse(localStorage.getItem('UsuarioCorrente'));
-        if (usuarioCorrente && usuarioCorrente.id === empregadorId) {
-            usuarioCorrente.vagasPublicadas = empregador.vagasPublicadas;
-            localStorage.setItem('UsuarioCorrente', JSON.stringify(usuarioCorrente));
-            console.log(`LocalStorage atualizado para o empregador ${empregadorId} com a nova vaga ${vagaId}`);
-        }
+//         // Atualizar os dados do empregador no localStorage
+//         const usuarioCorrente = JSON.parse(localStorage.getItem('UsuarioCorrente'));
+//         if (usuarioCorrente && usuarioCorrente.id === empregadorId) {
+//             usuarioCorrente.vagasPublicadas = empregador.vagasPublicadas;
+//             localStorage.setItem('UsuarioCorrente', JSON.stringify(usuarioCorrente));
+//             console.log(`LocalStorage atualizado para o empregador ${empregadorId} com a nova vaga ${vagaId}`);
+//         }
 
-    } catch (error) {
-        console.error('Erro ao atualizar empregador com a nova vaga:', error);
-    }
-}
-// Função para obter a data atual no formato DD/MM/AAAA
-function obterDataAtual() {
-    const hoje = new Date();
-    const dia = String(hoje.getDate()).padStart(2, '0');
-    const mes = String(hoje.getMonth() + 1).padStart(2, '0');
-    const ano = hoje.getFullYear();
-    return `${dia}/${mes}/${ano}`;
-}
+//     } catch (error) {
+//         console.error('Erro ao atualizar empregador com a nova vaga:', error);
+//     }
+// }
 
-// Função para verificar o limite de vagas
-async function verificarLimiteVagas(empregadorId) {
-    try {
-        const response = await fetch(`${JSON_SERVER_URL_EMPREGADORES}/${empregadorId}`);
-        if (!response.ok) {
-            throw new Error('Erro ao obter dados do empregador');
-        }
+// // Função para obter a data atual no formato DD/MM/AAAA
+// function obterDataAtual() {
+//     const hoje = new Date();
+//     const dia = String(hoje.getDate()).padStart(2, '0');
+//     const mes = String(hoje.getMonth() + 1).padStart(2, '0');
+//     const ano = hoje.getFullYear();
+//     return `${dia}/${mes}/${ano}`;
+// }
 
-        const empregador = await response.json();
-        if (!empregador.vagasPublicadas) {
-            empregador.vagasPublicadas = [];
-        }
-        // 10 para userPremium = true, 5 para userPremium = false
-        const limiteVagas = empregador.UserPremium ? 10 : 5;
-        if (empregador.vagasPublicadas.length >= limiteVagas) {
-            throw new Error('Limite de vagas publicadas atingido');
-        }
+// // Função para verificar o limite de vagas
+// async function verificarLimiteVagas(empregadorId) {
+//     try {
+//         const response = await fetch(`${JSON_SERVER_URL_EMPREGADORES}/${empregadorId}`);
+//         if (!response.ok) {
+//             throw new Error('Erro ao obter dados do empregador');
+//         }
 
-        return true;
-    } catch (error) {
-        console.error('Erro ao verificar limite de vagas:', error);
-        throw error;
-    }
-}
+//         const empregador = await response.json();
+//         if (!empregador.vagasPublicadas) {
+//             empregador.vagasPublicadas = [];
+//         }
+//         // 10 para userPremium = true, 5 para userPremium = false
+//         const limiteVagas = empregador.UserPremium ? 10 : 5;
+//         if (empregador.vagasPublicadas.length >= limiteVagas) {
+//             throw new Error('Limite de vagas publicadas atingido');
+//         }
+
+//         return true;
+//     } catch (error) {
+//         console.error('Erro ao verificar limite de vagas:', error);
+//         throw error;
+//     }
+// }
 
 
-// Função para incluir uma vaga no Json Server
-async function IncluirVagaLS() {
-    console.log("Iniciando inclusão de vaga...");
-    const usuarioCorrente = JSON.parse(localStorage.getItem('UsuarioCorrente'));
-    if (!usuarioCorrente || usuarioCorrente.tipo !== 'empregador') {
-        window.alert('Apenas empregadores podem publicar vagas.');
-        return;
-    }
+// // Função para salvar a vaga no JSON Server
+// async function salvarVagaNoJSONServer(vaga, empregadorId) {
+//     try {
+//         console.log("Salvando vaga no servidor:", vaga);
 
-    // Verificar o limite de vagas
-    const podePublicar = await verificarLimiteVagas(usuarioCorrente.id);
-    if (!podePublicar) {
-        window.alert(`Você atingiu o limite de vagas publicadas.`);
-        return;
-    }
+//         let response = await fetch(JSON_SERVER_URL_VAGAS, {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             },
+//             body: JSON.stringify(vaga)
+//         });
 
-    let nomeVaga = document.getElementById('nomeVaga').value;
-    let categoriaVaga = document.getElementById('categoriaVaga').value;
-    let descricaoVaga = document.getElementById('descricaoVaga').value;
-    let valorVaga = document.getElementById('valorVaga').value;
-    let turnoVaga = document.getElementById('turnoVaga').value;
-    let CEP = parseInt(document.getElementById('localVaga').value, 10);
-    let dataVaga = document.getElementById('dataVaga').value;
-    let habilidadesVaga = document.getElementById('habilidadesVaga').value.split(',');
-    let imagemInput = document.getElementById('imagemVaga').value; // Obter o valor do campo oculto do Uploadcare
+//         if (response.ok) {
+//             let novaVaga = await response.json();
+//             console.log("Nova vaga salva:", novaVaga);
+//             await atualizarEmpregadorComVaga(empregadorId, novaVaga.id);
+//             window.alert('A vaga foi publicada! Para acessá-la, visite a aba de "Vagas em Aberto"');
+//             return novaVaga;
+//         } else {
+//             const errorText = await response.text();
+//             console.error('Erro ao salvar vaga no JSON Server:', errorText);
+//             throw new Error('Erro ao salvar vaga no JSON Server');
+//         }
+//     } catch (error) {
+//         console.error(error);
+//         window.alert('Erro.');
+//     }
+// }
+// // Função para incluir uma vaga no Json Server
+// async function IncluirVagaLS() {
+//     console.log("Iniciando inclusão de vaga...");
+//     const usuarioCorrente = JSON.parse(localStorage.getItem('UsuarioCorrente'));
+//     if (!usuarioCorrente || usuarioCorrente.tipo !== 'empregador') {
+//         window.alert('Apenas empregadores podem publicar vagas.');
+//         return;
+//     }
 
-    console.log("Imagem selecionada:", imagemInput);
+//     // Verificar o limite de vagas
+//     const podePublicar = await verificarLimiteVagas(usuarioCorrente.id);
+//     if (!podePublicar) {
+//         window.alert(`Você atingiu o limite de vagas publicadas.`);
+//         return;
+//     }
 
-    if (nomeVaga === '' || categoriaVaga === '' || valorVaga === '' || descricaoVaga === '') {
-        window.alert("Por favor, tenha certeza que todos os campos abaixos estão preenchidos: \n\nVaga: Nome, Categoria, Valor e Descrição \nContratante: Nome, E-mail e CPF/CNPJ");
-        return;
-    }
+//     let nomeVaga = document.getElementById('nomeVaga').value;
+//     let categoriaVaga = document.getElementById('categoriaVaga').value;
+//     let descricaoVaga = document.getElementById('descricaoVaga').value;
+//     let valorVaga = document.getElementById('valorVaga').value;
+//     let turnoVaga = document.getElementById('turnoVaga').value;
+//     let CEP = parseInt(document.getElementById('localVaga').value, 10);
+//     let dataVaga = document.getElementById('dataVaga').value;
+//     let habilidadesVaga = document.getElementById('habilidadesVaga').value.split(',');
+//     let imagemInput = document.getElementById('imagemVaga').value; // Obter o valor do campo oculto do Uploadcare
 
-    let novaVaga = {
-        nome: nomeVaga,
-        categoria: categoriaVaga,
-        descricao: descricaoVaga,
-        imagem: imagemInput, // URL da imagem do Uploadcare
-        valor: valorVaga,
-        turno: turnoVaga,
-        local: CEP,
-        data: dataVaga,
-        habilidades: habilidadesVaga,
-        empregador: usuarioCorrente.nome,
-        email: usuarioCorrente.email,
-        telefone: usuarioCorrente.telefone,
-        cnpj: usuarioCorrente.cpf,
-        publicado: true,
-        publicacao: obterDataAtual(),
-        candidatos: [], // Inicializa com um array vazio para os candidatos
-        online: true,
-        IDfreelancerEscolhido: null
-    };
+//     console.log("Imagem selecionada:", imagemInput);
 
-    console.log("Nova vaga:", novaVaga);
-    try {
-        const vagaCriada = await salvarVagaNoJSONServer(novaVaga, usuarioCorrente.id);
-        console.log("Vaga criada:", vagaCriada);
-    } catch (error) {
-        console.error("Erro ao incluir a vaga:", error);
-        window.alert('Falha ao salvar vaga no servidor. Por favor, tente novamente.');
-    }
-}
+//     if (nomeVaga === '' || categoriaVaga === '' || valorVaga === '' || descricaoVaga === '') {
+//         window.alert("Por favor, tenha certeza que todos os campos abaixos estão preenchidos: \n\nVaga: Nome, Categoria, Valor e Descrição \nContratante: Nome, E-mail e CPF/CNPJ");
+//         return;
+//     }
 
-// Adicionar event listener ao botão de publicação de vaga
-document.addEventListener('DOMContentLoaded', function() {
-    const btnPublicarVaga = document.getElementById('btnPublicarVaga');
-    if (btnPublicarVaga) {
-        btnPublicarVaga.addEventListener('click', async function() {
-            await IncluirVagaLS();
-            window.location.href = '../Home/Home.html';
-        });
-    }
-});
+//     // Buscar todas as vagas para calcular o próximo ID
+//     const responseVagas = await fetch(JSON_SERVER_URL_VAGAS);
+//     if (!responseVagas.ok) {
+//         console.error('Erro ao obter dados das vagas');
+//         return;
+//     }
+//     const vagas = await responseVagas.json();
+//     const novoId = vagas.length ? Math.max(...vagas.map(v => v.id)) + 1 : 1; // Calcular o próximo ID
 
+//     let novaVaga = {
+//         id: novoId,
+//         nome: nomeVaga,
+//         categoria: categoriaVaga,
+//         descricao: descricaoVaga,
+//         imagem: imagemInput, // URL da imagem do Uploadcare
+//         valor: valorVaga,
+//         turno: turnoVaga,
+//         local: CEP,
+//         data: dataVaga,
+//         habilidades: habilidadesVaga,
+//         empregador: usuarioCorrente.nome,
+//         email: usuarioCorrente.email,
+//         telefone: usuarioCorrente.telefone,
+//         cnpj: usuarioCorrente.cpf,
+//         publicado: true,
+//         publicacao: obterDataAtual(),
+//         candidatos: [], // Inicializa com um array vazio para os candidatos
+//         online: true,
+//         IDfreelancerEscolhido: null
+//     };
+
+//     console.log("Nova vaga:", novaVaga);
+//     try {
+//         const vagaCriada = await salvarVagaNoJSONServer(novaVaga, usuarioCorrente.id);
+//         console.log("Vaga criada:", vagaCriada);
+//     } catch (error) {
+//         console.error("Erro ao incluir a vaga:", error);
+//         window.alert('Falha ao salvar vaga no servidor. Por favor, tente novamente.');
+//     }
+// }
+
+// document.addEventListener('DOMContentLoaded', function() {
+//     const btnPublicarVaga = document.getElementById('btnPublicarVaga');
+//     if (btnPublicarVaga) {
+//         btnPublicarVaga.addEventListener('click', async function(event) {
+//             event.preventDefault(); // Previne o comportamento padrão do botão
+//             await IncluirVagaLS();
+//         });
+//     }
+// });
 
 
 //Vagas candidatadas / vagas postadas
@@ -857,9 +973,9 @@ document.addEventListener("DOMContentLoaded", function () {
 //Tipo de vaga que vai ser exibida
 document.addEventListener("DOMContentLoaded", async function () {
     const vagasContainer = document.getElementById('Vagas-candidatada-postada');
-    const JSON_SERVER_URL_VAGAS = 'https://uaijobs-json-server.vercel.app/vagas';
-    const JSON_SERVER_URL_EMPREGADORES = 'https://uaijobs-json-server.vercel.app/empregadores';
-    const JSON_SERVER_URL_FREELANCERS = 'https://uaijobs-json-server.vercel.app/freelancers';
+    const JSON_SERVER_URL_VAGAS = 'https://uaijobs-json-server.onrender.com/vagas';
+    const JSON_SERVER_URL_EMPREGADORES = 'https://uaijobs-json-server.onrender.com/empregadores';
+    const JSON_SERVER_URL_FREELANCERS = 'https://uaijobs-json-server.onrender.com/freelancers';
 
     const usuarioCorrente = JSON.parse(localStorage.getItem('UsuarioCorrente'));
 
