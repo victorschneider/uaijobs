@@ -17,7 +17,7 @@ let filters = {
 // Função que carrega as vagas do JSON-Server na página
 document.addEventListener("DOMContentLoaded", function () {
     const vagasContainer = document.getElementById('container-vagas-abertas');
-    const JSON_SERVER_URL_VAGAS = 'https://uaijobs-json-server.onrender.com/vagas';
+    const JSON_SERVER_URL_VAGAS = 'https://uaijobs-json-server-fvyr.onrender.com/vagas';
 
     // Verifique se axios está disponível
     if (typeof axios === 'undefined') {
@@ -484,7 +484,7 @@ async function retirarCandidatura(vagaId) {
     }
 
     try {
-        // Obter os dados do freelancer
+        // Obter os dados do freelanceruaijobs-json-server.onrender
         const freelancerResponse = await fetch(`${JSON_SERVER_URL_FREELANCERS}/${usuarioCorrente.id}`);
         if (!freelancerResponse.ok) {
             throw new Error('Erro ao obter dados do freelancer');
@@ -551,9 +551,9 @@ async function retirarCandidatura(vagaId) {
 }
 
 // // Página de publicar vagas
-//    const JSON_SERVER_URL_VAGAS = 'https://uaijobs-json-server.onrender.com/vagas';
-// const JSON_SERVER_URL_EMPREGADORES = 'https://uaijobs-json-server.onrender.com/empregadores';
-// const JSON_SERVER_URL_FREELANCERS = 'https://uaijobs-json-server.onrender.com/freelancers';
+//    const JSON_SERVER_URL_VAGAS = 'https://uaijobs-json-server-fvyr.onrender.com/vagas';
+// const JSON_SERVER_URL_EMPREGADORES = 'https://uaijobs-json-server-fvyr.onrender.com/empregadores';
+// const JSON_SERVER_URL_FREELANCERS = 'https://uaijobs-json-server-fvyr.onrender.com/freelancers';
 
 //     document.getElementById('btnPublicarVaga').addEventListener('click', async function(event) {
 //         event.preventDefault();

@@ -1,6 +1,6 @@
-const JSON_SERVER_URL_EMPREGADORES = 'https://uaijobs-json-server.onrender.com/empregadores';
-const JSON_SERVER_URL_FREELANCERS = 'https://uaijobs-json-server.onrender.com/freelancers';
-const JSON_SERVER_URL_ADMIN = 'https://uaijobs-json-server.onrender.com/admin';
+const JSON_SERVER_URL_EMPREGADORES = 'https://uaijobs-json-server-fvyr.onrender.com/empregadores';
+const JSON_SERVER_URL_FREELANCERS = 'https://uaijobs-json-server-fvyr.onrender.com/freelancers';
+const JSON_SERVER_URL_ADMIN = 'https://uaijobs-json-server-fvyr.onrender.com/admin';
 
 // Função que lê o usuário logado no momento
 function lerUsuarioCorrenteLS() {

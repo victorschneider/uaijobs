@@ -1,7 +1,8 @@
 // Página de publicar vagas
-const JSON_SERVER_URL_VAGAS = 'https://uaijobs-json-server.onrender.com/vagas';
-const JSON_SERVER_URL_EMPREGADORES = 'https://uaijobs-json-server.onrender.com/empregadores';
-const JSON_SERVER_URL_FREELANCERS = 'https://uaijobs-json-server.onrender.com/freelancers';
+const JSON_SERVER_URL_VAGAS = 'https://uaijobs-json-server-fvyr.onrender.com/vagas';
+const JSON_SERVER_URL_EMPREGADORES = 'https://uaijobs-json-server-fvyr.onrender.com/empregadores';
+const JSON_SERVER_URL_FREELANCERS = 'https://uaijobs-json-server-fvyr.onrender.com/freelancers';
+
 
 document.getElementById('btnPublicarVaga').addEventListener('click', async function(event) {
     event.preventDefault();
