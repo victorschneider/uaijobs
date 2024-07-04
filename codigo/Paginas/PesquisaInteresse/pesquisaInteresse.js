@@ -46,8 +46,7 @@ async function atualizarInteressesLS(usuarioLogado) {
         }
     }
 
-
-    
+    window.location.href = '../Home/Home.html'; // Redireciona para a home    
 }
 
 // Função para salvar as seleções no Local Storage e no JSON server
@@ -58,8 +57,9 @@ function salvarSelecoes() {
     });
     const usuarioLogado = lerUsuarioCorrenteLS();
     usuarioLogado.interesses = interessesSelecionados; // Adiciona os interesses selecionados aos interesses do usuário fictício
-    salvarUsuarioCorrenteLS(usuarioLogado); // Salva os dados do usuário fictício no Local Storage
     atualizarInteressesLS(usuarioLogado); // Atualiza os interesses no Local Storage e no JSON server
+    salvarUsuarioCorrenteLS(usuarioLogado); // Salva os dados do usuário fictício no Local Storage
+     
 }
 
 // Nomes dos interesses e caminhos das imagens
@@ -114,11 +114,10 @@ function atualizarEstadoBotaoConfirmar() {
 }
 
 // Função para confirmar a seleção e salvar as seleções de interesses antes de redirecionar para a home
-function confirmarSelecao() {
+async function confirmarSelecao() {
     const confirmacao = confirm('Você deseja confirmar suas escolhas?'); // Pergunta ao usuário se ele deseja confirmar as escolhas
     if (confirmacao) { // Se o usuário confirmar
         salvarSelecoes(); // Salva as seleções no Local Storage e no JSON server
-        window.location.href = '../Home/Home.html'; // Redireciona para a home
     }
 }
 

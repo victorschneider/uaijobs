@@ -134,29 +134,29 @@ const JSON_SERVER_URL_EMPREGADORES1 = 'https://uaijobs-json-server-fvyr.onrender
 const JSON_SERVER_URL_FREELANCERS1 = 'https://uaijobs-json-server-fvyr.onrender.com/freelancers';
 
 // Função para atualizar o UsuarioCorrente
-async function atualizarUsuarioCorrente() {
-    const UsuarioCorrente = JSON.parse(localStorage.getItem('UsuarioCorrente'));
+    async function atualizarUsuarioCorrente() {
+        const UsuarioCorrente = JSON.parse(localStorage.getItem('UsuarioCorrente'));
 
-    if (!UsuarioCorrente) {
-        console.error('Nenhum usuário corrente encontrado.');
-        return;
-    }
-
-    try {
-        let response;
-        if (UsuarioCorrente.tipo === 'empregador') {
-            response = await axios.get(`${JSON_SERVER_URL_EMPREGADORES1}/${UsuarioCorrente.id}`);
-        } else if (UsuarioCorrente.tipo === 'freelancer') {
-            response = await axios.get(`${JSON_SERVER_URL_FREELANCERS1}/${UsuarioCorrente.id}`);
+        if (!UsuarioCorrente) {
+            console.error('Nenhum usuário corrente encontrado.');
+            return;
         }
 
-        const usuarioAtualizado = response.data;
-        localStorage.setItem('UsuarioCorrente', JSON.stringify(usuarioAtualizado));
-        console.log('UsuarioCorrente atualizado:', usuarioAtualizado);
-    } catch (error) {
-        console.error('Erro ao atualizar UsuarioCorrente:', error);
+        try {
+            let response;
+            if (UsuarioCorrente.tipo === 'empregador') {
+                response = await axios.get(`${JSON_SERVER_URL_EMPREGADORES1}/${UsuarioCorrente.id}`);
+            } else if (UsuarioCorrente.tipo === 'freelancer') {
+                response = await axios.get(`${JSON_SERVER_URL_FREELANCERS1}/${UsuarioCorrente.id}`);
+            }
+
+            const usuarioAtualizado = response.data;
+            localStorage.setItem('UsuarioCorrente', JSON.stringify(usuarioAtualizado));
+            console.log('UsuarioCorrente atualizado:', usuarioAtualizado);
+        } catch (error) {
+            console.error('Erro ao atualizar UsuarioCorrente:', error);
+        }
     }
-}
 
 // Chama a função para atualizar o UsuarioCorrente ao carregar a página
 document.addEventListener("DOMContentLoaded", async function() {
