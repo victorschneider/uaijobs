@@ -259,3 +259,14 @@ textarea.form-control {
 }
 
 /*Aqui termina o Crud para os feedbacks*/
+
+.imagem-home{
+    max-height: 500px;
+}
+
+.texto-home {
+    color: black;
+}
+.texto-dinamico{
+    color: black;
+}

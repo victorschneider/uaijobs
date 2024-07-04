@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     ];
     let textoAtual = 0; // Índice do texto atual
     const elementoTexto = document.getElementById('texto-alteravel'); // Obtém o elemento que conterá o texto dinâmico
+    elementoTexto.classList.add('texto-home');
 
     // Função para digitar um texto, caractere por caractere
     function digitarTexto(texto, callback) {
