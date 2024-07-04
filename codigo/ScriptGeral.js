@@ -129,9 +129,9 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 // Chama a função para ajustar o comportamento do botão quando a página carregar
 window.onload = ajustarComportamentoBotao;
-
-const JSON_SERVER_URL_EMPREGADORES = 'https://uaijobs-json-server-fvyr.onrender.com/empregadores';
-const JSON_SERVER_URL_FREELANCERS = 'https://uaijobs-json-server-fvyr.onrender.com/freelancers';
+//Atualizar os usuarios no LS com as inf do JSON
+const JSON_SERVER_URL_EMPREGADORES1 = 'https://uaijobs-json-server-fvyr.onrender.com/empregadores';
+const JSON_SERVER_URL_FREELANCERS1 = 'https://uaijobs-json-server-fvyr.onrender.com/freelancers';
 
 // Função para atualizar o UsuarioCorrente
 async function atualizarUsuarioCorrente() {
@@ -145,9 +145,9 @@ async function atualizarUsuarioCorrente() {
     try {
         let response;
         if (UsuarioCorrente.tipo === 'empregador') {
-            response = await axios.get(`${JSON_SERVER_URL_EMPREGADORES}/${UsuarioCorrente.id}`);
+            response = await axios.get(`${JSON_SERVER_URL_EMPREGADORES1}/${UsuarioCorrente.id}`);
         } else if (UsuarioCorrente.tipo === 'freelancer') {
-            response = await axios.get(`${JSON_SERVER_URL_FREELANCERS}/${UsuarioCorrente.id}`);
+            response = await axios.get(`${JSON_SERVER_URL_FREELANCERS1}/${UsuarioCorrente.id}`);
         }
 
         const usuarioAtualizado = response.data;

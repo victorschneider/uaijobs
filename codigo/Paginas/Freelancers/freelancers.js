@@ -1,3 +1,4 @@
+const JSON_SERVER_URL_FREELANCERS = 'https://uaijobs-json-server-fvyr.onrender.com/freelancers';
 let freelancers = [];
 let filteredItems = [];
 let currentPage = 1;
