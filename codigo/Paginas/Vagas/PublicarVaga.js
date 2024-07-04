@@ -3,9 +3,23 @@ const JSON_SERVER_URL_VAGAS = 'https://uaijobs-json-server-fvyr.onrender.com/vag
 const JSON_SERVER_URL_EMPREGADORES = 'https://uaijobs-json-server-fvyr.onrender.com/empregadores';
 const JSON_SERVER_URL_FREELANCERS = 'https://uaijobs-json-server-fvyr.onrender.com/freelancers';
 
-
 document.getElementById('btnPublicarVaga').addEventListener('click', async function(event) {
     event.preventDefault();
+
+    // Obtenha os dados do usuário corrente do localStorage
+    const UsuarioCorrente = JSON.parse(localStorage.getItem('UsuarioCorrente'));
+
+    // Verifique se o usuário corrente existe e é um empregador
+    if (!UsuarioCorrente || UsuarioCorrente.tipo !== 'empregador') {
+        alert('Erro: Usuário corrente inválido ou não é um empregador.');
+        return;
+    }
+
+    // Verifique a quantidade de vagas postadas pelo usuário corrente
+    if (!podePostarMaisVagas(UsuarioCorrente)) {
+        alert('Limite de vagas postadas atingido.');
+        return;
+    }
 
     // Obtenha os valores dos campos do formulário
     const nomeVaga = document.getElementById('nomeVaga').value;
@@ -17,15 +31,6 @@ document.getElementById('btnPublicarVaga').addEventListener('click', async funct
     const habilidadesVaga = document.getElementById('habilidadesVaga').value.split(',').map(h => h.trim());
     const descricaoVaga = document.getElementById('descricaoVaga').value;
     const imagemVaga = document.getElementById('imagemVaga').value;
-
-    // Obtenha os dados do usuário corrente do localStorage
-    const UsuarioCorrente = JSON.parse(localStorage.getItem('UsuarioCorrente'));
-
-    // Verifique se o usuário corrente existe e é um empregador
-    if (!UsuarioCorrente || UsuarioCorrente.tipo !== 'empregador') {
-        alert('Erro: Usuário corrente inválido ou não é um empregador.');
-        return;
-    }
 
     // Faça o upload da imagem usando UploadCare
     let imagemUrl = '';
@@ -39,8 +44,9 @@ document.getElementById('btnPublicarVaga').addEventListener('click', async funct
     }
 
     // Construa o objeto vaga
+    const vagaId = gerarId();
     const vaga = {
-        id: generateId(), // Função para gerar ID único
+        id: vagaId,
         nome: nomeVaga,
         categoria: categoriaVaga,
         descricao: descricaoVaga,
@@ -67,8 +73,23 @@ document.getElementById('btnPublicarVaga').addEventListener('click', async funct
     try {
         const response = await axios.post(JSON_SERVER_URL_VAGAS, vaga);
         console.log('Resposta do servidor:', response);
+
         if (response.status === 201) {
             alert('Vaga publicada com sucesso!');
+
+            // Atualize o array de vagasPublicadas do UsuarioCorrente
+            UsuarioCorrente.vagasPublicadas.push(vagaId);
+            localStorage.setItem('UsuarioCorrente', JSON.stringify(UsuarioCorrente));
+
+            // Atualize o empregador no JSON server
+            const empregadorResponse = await axios.get(`${JSON_SERVER_URL_EMPREGADORES}/${UsuarioCorrente.id}`);
+            const empregador = empregadorResponse.data;
+
+            empregador.vagasPublicadas.push(vagaId);
+
+            await axios.put(`${JSON_SERVER_URL_EMPREGADORES}/${UsuarioCorrente.id}`, empregador);
+
+            alert('Empregador atualizado com sucesso!');
         } else {
             alert('Erro ao publicar vaga!');
         }
@@ -78,6 +99,11 @@ document.getElementById('btnPublicarVaga').addEventListener('click', async funct
     }
 });
 
-function generateId() {
+function gerarId() {
     return '_' + Math.random().toString(36).substr(2, 9);
+}
+
+function podePostarMaisVagas(usuario) {
+    const maxVagas = usuario.UserPremium ? 10 : 3;
+    return usuario.vagasPublicadas.length < maxVagas;
 }

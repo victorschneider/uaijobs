@@ -130,3 +130,36 @@ document.addEventListener("DOMContentLoaded", function() {
 // Chama a função para ajustar o comportamento do botão quando a página carregar
 window.onload = ajustarComportamentoBotao;
 
+const JSON_SERVER_URL_EMPREGADORES = 'https://uaijobs-json-server-fvyr.onrender.com/empregadores';
+const JSON_SERVER_URL_FREELANCERS = 'https://uaijobs-json-server-fvyr.onrender.com/freelancers';
+
+// Função para atualizar o UsuarioCorrente
+async function atualizarUsuarioCorrente() {
+    const UsuarioCorrente = JSON.parse(localStorage.getItem('UsuarioCorrente'));
+
+    if (!UsuarioCorrente) {
+        console.error('Nenhum usuário corrente encontrado.');
+        return;
+    }
+
+    try {
+        let response;
+        if (UsuarioCorrente.tipo === 'empregador') {
+            response = await axios.get(`${JSON_SERVER_URL_EMPREGADORES}/${UsuarioCorrente.id}`);
+        } else if (UsuarioCorrente.tipo === 'freelancer') {
+            response = await axios.get(`${JSON_SERVER_URL_FREELANCERS}/${UsuarioCorrente.id}`);
+        }
+
+        const usuarioAtualizado = response.data;
+        localStorage.setItem('UsuarioCorrente', JSON.stringify(usuarioAtualizado));
+        console.log('UsuarioCorrente atualizado:', usuarioAtualizado);
+    } catch (error) {
+        console.error('Erro ao atualizar UsuarioCorrente:', error);
+    }
+}
+
+// Chama a função para atualizar o UsuarioCorrente ao carregar a página
+document.addEventListener("DOMContentLoaded", async function() {
+    await atualizarUsuarioCorrente();
+    // Outras funções ou scripts que dependem do UsuarioCorrente atualizado podem ser chamados aqui
+});
