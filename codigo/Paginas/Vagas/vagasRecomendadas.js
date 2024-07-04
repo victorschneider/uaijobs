@@ -3,7 +3,6 @@ let filteredItems = [];
 let currentPage = 1;
 const itensPorPagina = 4;
 
-// Função para renderizar a página atual
 function renderPage(page) {
     const vagasContainer = document.getElementById('container-vagas-recomendadas');
     if (!vagasContainer) {
@@ -15,72 +14,83 @@ function renderPage(page) {
 
     const start = (page - 1) * itensPorPagina;
     const end = start + itensPorPagina;
-    const pageItems = filteredItems.slice(start, end);
+
+    // Filtrar itens que estão publicados e online
+    const filteredPublishedItems = filteredItems.filter(vagaItem => vagaItem.publicado && vagaItem.online);
+
+    const pageItems = filteredPublishedItems.slice(start, end);
 
     console.log('Itens da página:', pageItems); // Log para verificar itens da página
 
+    const row = document.createElement('div');
+    row.classList.add('row', 'gx-3', 'gy-3'); // Define a row com gap entre os cartões
+
     pageItems.forEach(vagaItem => {
-        if (vagaItem.publicado) {
-            const vagaCard = document.createElement('div');
-            vagaCard.classList.add('Container', 'border', 'p-3', 'rounded-4', 'shadow-lg', 'mb-5', 'bg-body-tertiary', 'col-md-6', 'col-lg-4', 'col-xl-4', 'd-flex', 'flex-column', 'align-items-center');
+        const col = document.createElement('div');
+        col.classList.add('col-12', 'col-md-6'); // Define duas colunas por linha
 
-            const title = document.createElement('div');
-            title.classList.add('Cards-vagas-title', 'text-center', 'pb-2');
-            const h2 = document.createElement('h2');
-            h2.textContent = vagaItem.nome;
-            title.appendChild(h2);
+        const vagaCard = document.createElement('div');
+        vagaCard.classList.add('Container', 'border', 'p-3', 'rounded-4', 'shadow-lg', 'bg-body-tertiary', 'd-flex', 'flex-column');
 
-            const imagem = document.createElement('div');
-            imagem.classList.add('Cards-vagas-imagem');
-            const img = document.createElement('img');
-            img.classList.add('rounded-3', 'img-fluid');
-            img.src = vagaItem.imagem;
-            img.alt = 'Imagem da vaga';
-            img.onerror = function () {
-                console.error('Erro ao carregar a imagem:', vagaItem.imagem);
-                img.src = 'fallback_image_url.jpg'; // Imagem de fallback
-            };
-            imagem.appendChild(img);
+        const title = document.createElement('div');
+        title.classList.add('Cards-vagas-title', 'text-center', 'pb-2');
+        const h2 = document.createElement('h2');
+        h2.textContent = vagaItem.nome;
+        title.appendChild(h2);
 
-            const descricao = document.createElement('div');
-            descricao.classList.add('Cards-vagas-descrição', 'text-center');
-            const p = document.createElement('p');
-            const maxLength = 500;
-            if (vagaItem.descricao) {
-                p.textContent = vagaItem.descricao.substring(0, maxLength) + '...';
-            } else {
-                p.textContent = 'Descrição não disponível.';
-            }
-            descricao.appendChild(p);
+        const imagem = document.createElement('div');
+        imagem.classList.add('Cards-vagas-imagem');
+        const img = document.createElement('img');
+        img.classList.add('rounded-3', 'img-fluid'); // img-fluid para ajustar a largura
+        img.src = vagaItem.imagem;
+        img.alt = 'Imagem da vaga';
+        img.onerror = function () {
+            console.error('Erro ao carregar a imagem:', vagaItem.imagem);
+            img.src = 'fallback_image_url.jpg'; // Imagem de fallback
+        };
+        imagem.appendChild(img);
 
-            const bttn = document.createElement('div');
-            bttn.classList.add('Cards-vagas-bttn', 'd-grid', 'gap-2', 'col-6', 'mx-auto');
-            const button = document.createElement('button');
-            button.classList.add('btn');
-            button.textContent = 'Ver detalhes';
-            button.onclick = function () {
-                mostrarDetalhesVaga(vagaItem);
-            };
-            bttn.appendChild(button);
-
-            vagaCard.appendChild(title);
-            vagaCard.appendChild(imagem);
-            vagaCard.appendChild(descricao);
-            vagaCard.appendChild(bttn);
-
-            vagasContainer.appendChild(vagaCard);
+        const descricao = document.createElement('div');
+        descricao.classList.add('Cards-vagas-descrição');
+        const p = document.createElement('p');
+        const maxLength = 500;
+        if (vagaItem.descricao) {
+            p.textContent = vagaItem.descricao.substring(0, maxLength) + '...';
+        } else {
+            p.textContent = 'Descrição não disponível.';
         }
+        descricao.appendChild(p);
+
+        const bttn = document.createElement('div');
+        bttn.classList.add('Cards-vagas-bttn', 'd-grid', 'gap-2', 'col-6', 'mx-auto');
+        const button = document.createElement('button');
+        button.classList.add('btn');
+        button.textContent = 'Ver detalhes';
+        button.onclick = function () {
+            mostrarDetalhesVaga(vagaItem);
+        };
+        bttn.appendChild(button);
+
+        vagaCard.appendChild(title);
+        vagaCard.appendChild(imagem);
+        vagaCard.appendChild(descricao);
+        vagaCard.appendChild(bttn);
+
+        col.appendChild(vagaCard);
+        row.appendChild(col);
     });
 
-    updatePagination();
+    vagasContainer.appendChild(row);
+
+    updatePagination(filteredPublishedItems.length); // Passe o comprimento correto
 }
 
 // Função para atualizar a paginação
-function updatePagination() {
+function updatePagination(totalItems) {
     const pagination = document.querySelector('.pagination');
     pagination.innerHTML = '';
 
-    const totalPages = Math.ceil(filteredItems.length / itensPorPagina);
+    const totalPages = Math.ceil(totalItems / itensPorPagina);
 
     pagination.innerHTML += `
         <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">

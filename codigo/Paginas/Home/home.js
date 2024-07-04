@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Construção dinâmica do carrossel para 3 feedbacks por vez
 function mostraFeedbacks() {
-    axios.get(`${URL_JSON_SERVER}/feedbacks`)
+    axios.get(`https://uaijobs-json-server.vercel.app/feedbacks`)
         .then(response => {
             const feedbacks = response.data;
             const carouselInner = document.querySelector('.carousel-inner');
